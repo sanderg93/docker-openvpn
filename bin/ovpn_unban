@@ -1,0 +1,21 @@
+#!/bin/bash
+
+BANNED_FILE="banned_clients.txt"
+
+# Check if file exists, if not, exit
+if [ ! -e "$BANNED_FILE" ]; then
+    echo "Banned clients list doesn't exist. Nothing to unban."
+    exit 0
+fi
+
+echo "Enter client name to unban:"
+read CLIENT_NAME
+
+# Check if the client is in the banned list
+if grep -q "$CLIENT_NAME" "$BANNED_FILE"; then
+    # Use sed to remove the client from the list
+    sed -i "/$CLIENT_NAME/d" "$BANNED_FILE"
+    echo "$CLIENT_NAME has been unbanned."
+else
+    echo "$CLIENT_NAME is not currently banned."
+fi

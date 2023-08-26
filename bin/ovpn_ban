@@ -1,0 +1,17 @@
+#!/bin/bash
+
+BANNED_FILE="banned_clients.txt"
+
+# Check if file exists, if not, create it
+[ -e "$BANNED_FILE" ] || touch "$BANNED_FILE"
+
+echo "Enter client name to ban:"
+read CLIENT_NAME
+
+# Check if the client is already banned
+if grep -q "$CLIENT_NAME" "$BANNED_FILE"; then
+    echo "$CLIENT_NAME is already banned."
+else
+    echo "$CLIENT_NAME" >> "$BANNED_FILE"
+    echo "$CLIENT_NAME has been banned."
+fi
